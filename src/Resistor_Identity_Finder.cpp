@@ -1,4 +1,7 @@
 #include <math.h>
+#include <Servo.h> // Include the Servo library
+#include <string.h>
+#include "Arduino.h"
 #include "bin_finder.h"
 
 

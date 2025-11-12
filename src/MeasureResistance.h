@@ -1,15 +1,16 @@
 // The known resistor values to cycle through in kOhms
 double referenceValue [] = {
-  20,
+  0.05,
+  0.1,
+  0.5,
   1,
   10,
-  49.9,
-  100,
-  499,
-  1000
+  20,
+  50,
+  100
 };
 
-const int hiThreshold = 3;
+const double hiThreshold = 4.0;
 const int lowThreshold = 1;
 double voltageMeas = 0;
 double varResistance = 0;
@@ -28,6 +29,7 @@ const int muxB = 3;
 const int muxC = 4;
 const int voltageIn = 5;
 const int maxBins = sizeof(bins);
+const int voltageConversion = 1030;
 const double perc_uncertainty = 0.2;
 
 int whichBin = maxBins;

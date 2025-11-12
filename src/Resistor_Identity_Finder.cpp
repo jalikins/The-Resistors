@@ -14,14 +14,15 @@ void setup() {
 }
 
 void loop() {
+  digitalWrite(muxA, LOW);
+  digitalWrite(muxB, LOW);
+  digitalWrite(muxC, LOW);
   // Wait to measure until user types "measure" into serial monitor
-  while (true) {  // stay stopped
-    if (Serial.available()) {
-      input = Serial.readStringUntil('\n');
-      input.trim();
-      if (input == "measure") {
-        whichBin = binFinder();
-      }
+  if (Serial.available()) {
+    input = Serial.readStringUntil('\n');
+    input.trim();
+    if (input == "measure") {
+      whichBin = binFinder();
     }
   }
   

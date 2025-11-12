@@ -9,32 +9,26 @@ int binFinder() {
   // Read signal across unknown resistor
   voltageMeas = analogRead(resistorPin);
   // Convert to voltage
-  voltageMeas = voltageIn*voltageMeas/1023;
+  voltageMeas = voltageIn*voltageMeas/voltageConversion;
   Serial.print("voltageMeas=");
   Serial.println(voltageMeas);
+  constResistance = referenceValue[0];
+  
   // Assign to catch all bin if resistance is too small to measure
   if (voltageMeas < lowThreshold) {
     catchAll = 1;
-    whichBin == catchAllBin;
+    whichBin = catchAllBin;
     Serial.println("CatchAll");
   }
 
   // Step down reference resistor values until receiving on a good signal
-  while (voltageMeas > hiThreshold || iterationCount == 8) {
-    Serial.print(digitalRead(muxA));
-    Serial.print(digitalRead(muxB));
-    Serial.print(digitalRead(muxC));
-
-    // Update the reference resistance value
-    constResistance = referenceValue[iterationCount - 1];
-    Serial.print("constResistance=");
-    Serial.print(constResistance);
-    // Take new voltage reading
-    voltageMeas = analogRead(resistorPin);
-    voltageMeas = voltageIn*voltageMeas/1023;
-    Serial.print("voltageMeas=");
-    Serial.println(voltageMeas);
-
+  while (voltageMeas > hiThreshold) {
+    if (iterationCount > 8) {
+      catchAll = true;
+      whichBin = catchAllBin;
+      Serial.print("CatchAll");
+      break;
+    }
     // Progress mux converter output
     digitalWrite(muxA, !digitalRead(muxA));
     if (iterationCount%2 == 0) {
@@ -44,13 +38,16 @@ int binFinder() {
       digitalWrite(muxC, !digitalRead(muxC));
     }
     
-    iterationCount += 1;
+    // Take new voltage reading
+    voltageMeas = analogRead(resistorPin);
+    voltageMeas = voltageIn*voltageMeas/voltageConversion;
+    Serial.print("voltageMeas=");
+    Serial.println(voltageMeas);
+    // Update the reference resistance value
+    constResistance = referenceValue[iterationCount];
+    
     // Assign to catch all bin if all reference values are tested
-    if (iterationCount == 8) {
-      catchAll = true;
-      whichBin == catchAllBin;
-      Serial.print("CatchAll");
-    }
+    iterationCount += 1;
   }
   
   // Assign resistors outside of range to catch all bin

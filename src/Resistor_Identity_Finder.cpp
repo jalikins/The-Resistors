@@ -1,13 +1,4 @@
-#include <Servo.h> // Include the Servo library
-#include <Stepper.h> // Include stepper library
-#include <string.h>
-#include <Arduino.h>
-#include <bin_finder.h>
-
-Servo servo1;
-Servo servo2;
-Servo servo3;
-Servo servo4;
+#include <MeasureResistance.h>
 
 //initialize Stepper library
 Stepper myStepper(STEPS_PER_REVOLUTION, IN1_PIN, IN3_PIN, IN2_PIN, IN4_PIN);
@@ -29,7 +20,6 @@ void setup() {
   pinMode(muxB, OUTPUT);
   pinMode(muxC, OUTPUT);
 
-  binOrder[]
 }
 
 void loop() {
@@ -46,9 +36,9 @@ void loop() {
   // Replace with commented code below
   if (round(beltPos % moduleSteps - measureOffset) == 0) {
     whichBin = binFinder();
-      // Belt position still needs to be defined using steppers 
-      binOrder[whichBin] = binOrder[whichBin].push_back(beltPos + moduleSteps*(whichBin+firstBin))
-      actuateServo(beltPos)
+    // Input number of steps to the desired bin plus the current belt position
+    binOrder[whichBin][binIndex[whichBin - 1]] = beltPos + moduleSteps*(whichBin+firstBin);
+    actuateServo(beltPos);
   }
   // if (Serial.available()) {
   //   input = Serial.readStringUntil('\n');

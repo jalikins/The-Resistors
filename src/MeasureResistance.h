@@ -35,7 +35,9 @@ const int voltageConversion = 1030;
 const int servoAngle = 10;
 
 // Needs to be assigned
-unsigned float beltPos = 0;
+unsigned double beltPos = 0;
+// Needs to be assigned (calibrate where to measure)
+unsigned double measureOffset = 0;
 double voltageMeas = 0;
 double varResistance = 0;
 double constResistance = 0;

@@ -32,7 +32,14 @@ void loop() {
   digitalWrite(muxA, LOW);
   digitalWrite(muxB, LOW);
   digitalWrite(muxC, LOW);
-  // Wait to measure until user types "measure" into serial monitor
+  // Wait to measure/drop until user types "measure" into serial monitor
+  // Replace with commented code below
+  // if (round(beltPos % moduleWidth - measureOffset) == 0) {
+  //   whichBin = binFinder();
+  //     // Belt position still needs to be defined using steppers 
+  //     binOrder[whichBin] = binOrder[whichBin].push_back(beltPos + moduleWidth*(whichBin+firstBin))
+  //     actuateServo(beltPos)
+  // }
   if (Serial.available()) {
     input = Serial.readStringUntil('\n');
     input.trim();

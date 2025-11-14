@@ -1,4 +1,5 @@
-#include "MeasureResistance.h"
+#include <math.h>
+#include <MeasureResistance.h>
 
 int binFinder() {
   whichBin = 0;

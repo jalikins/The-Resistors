@@ -15,10 +15,12 @@ double referenceValue [] = {
 
 const double perc_uncertainty = 0.2;
 const double hiThreshold = 4.0;
+// Speed in steps per second
+const double beltSpeed = 12;
 // Needs to be assigned
-const double moduleWidth = 0;
-// Needs to be assigned (The distance from measurement to the first bin)
-const double firstBin = 0;
+const double moduleSteps = 0;
+// Needs to be assigned (Steps from measurement to the first bin)
+const int firstBin = 0;
 const uint8_t nonbinModules = 4;
 const uint8_t servoPin1 = 1;
 const uint8_t servoPin2 = 2;
@@ -33,11 +35,20 @@ const int voltageIn = 5;
 const int lowThreshold = 1;
 const int voltageConversion = 1030;
 const int servoAngle = 10;
+// steps per revolution
+const int STEPS_PER_REVOLUTION = 513;
 
-// Needs to be assigned
-unsigned double beltPos = 0;
+// motor driver pin connections
+const int IN1_PIN = 8;
+const int IN2_PIN = 9;
+const int IN3_PIN = 10;
+const int IN4_PIN = 11;
+
+unsigned long timer = 0;
+// Counts the number of steps
+unsigned long beltPos = 0;
 // Needs to be assigned (calibrate where to measure)
-unsigned double measureOffset = 0;
+unsigned long measureOffset = 0;
 double voltageMeas = 0;
 double varResistance = 0;
 double constResistance = 0;

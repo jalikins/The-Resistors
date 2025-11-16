@@ -1,44 +1,57 @@
 #include <math.h>
-#include <Servo.h> // Include the Servo library
+#include <Servo.h> 
 #include <string.h>
 #include "Arduino.h"
-#include "bin_finder.h"
 #include <Stepper.h>
 
 
-// steps per revolution
-const int STEPS_PER_REVOLUTION = 513;
-
 // motor driver pin connections
-const int IN1_PIN = 8;
-const int IN2_PIN = 9;
-const int IN3_PIN = 10;
-const int IN4_PIN = 11;
+const int dirPin = 8; 
+const int stepPin = 9; 
+
+// number of ticks per revolution
+const int ticks = 516;
+
+// change this to change speed!
+const int rpm = 40;
+
+// calculating delay per step needed to keep at rpm
+const long delayPerStep = (60L * 1000L * 1000L) / (ticks * rpm);
 
 
-//initialize Stepper library
-Stepper myStepper(STEPS_PER_REVOLUTION, IN1_PIN, IN3_PIN, IN2_PIN, IN4_PIN);
+// rotates stepper clockwise
+void clockwise(int dirPin, int stepPin) {
+  // set direction pin to clockwise
+  digitalWrite(dirPin, LOW); 
 
+  // loop for full revolution
+  for (int i = 0; i < ticks; i++) {
+    digitalWrite(stepPin, HIGH);
+    delayMicroseconds(delayPerStep / 2);
+    digitalWrite(stepPin, LOW);
+    delayMicroseconds(delayPerStep / 2);
+  }
+}
+
+// turns stepper counterclockwise
+void counterclockwise(int dirPin, int stepPin) {
+  // direction counterclockwise
+  digitalWrite(dirPin, HIGH); 
+  // loop for full revolution
+  for (int i = 0; i < ticks; i++) {
+    digitalWrite(stepPin, HIGH);
+    delayMicroseconds(delayPerStep / 2);
+    digitalWrite(stepPin, LOW);
+    delayMicroseconds(delayPerStep / 2);
+  }
+}
 
 void setup() {
-  Serial.begin(9600);
-  Serial.println("Stepper motor example");
-
-  // set motor speed
-  myStepper.setSpeed(12);
+  pinMode(stepPin, OUTPUT);
+  pinMode(dirPin, OUTPUT);
 }
 
 void loop() {
+  counterclockwise(dirPin, stepPin);
 
-  // turning 1 rotation (513 ticks) clockwise
-  myStepper.step(STEPS_PER_REVOLUTION);
-  delay(1000);
-
-  // turning 100 ticks counterclockwise
-  myStepper.step(-100);
-  delay(1000); 
-
-  // turning 100 ticks clockwise
-  myStepper.step(100);
-  delay(2000); 
 }

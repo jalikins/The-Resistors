@@ -1,5 +1,7 @@
 #include <MeasureResistance.h>
+#include <AccelStepper.h>
 
+AccelStepper left_stepper(MOTORINTERFACETYPE, STEPPIN, DIRPIN);
 
 void setup() {
   timer = millis();
@@ -9,7 +11,8 @@ void setup() {
   servo2.attach(SERVOPIN2);
   servo3.attach(SERVOPIN3);
   servo4.attach(SERVOPIN4);
-
+  left_stepper.setMaxSpeed(250); // change this if going to fast
+  left_stepper.setAcceleration(200);
 
   pinMode(RESISTORPIN, INPUT);
   pinMode(MUXA, OUTPUT);
@@ -20,6 +23,20 @@ void setup() {
 }
 
 void loop() {
+  // if (Serial.available()) {
+  //   input = Serial.readStringUntil('\n');
+  //   input.trim();
+  //   if (input == "go") {
+  //     left_stepper.setSpeed(30);
+  //     Serial.print("going");
+  //   }
+    
+  //   if (input == "stop") {
+  //     left_stepper.setSpeed(0);
+  //     Serial.print("stopping");
+  //   }
+  // }
+  left_stepper.setSpeed(30);
   servo1.write(0);
   servo2.write(0);
   servo3.write(0);
@@ -28,7 +45,9 @@ void loop() {
   digitalWrite(MUXB, LOW);
   digitalWrite(MUXC, LOW);
 
-  beltPos = BELTSPEED * timer / 1000;
+  beltPos = left_stepper.currentPosition();
+  Serial.print("beltPos=");
+  Serial.print(beltPos);
 
   // Replace with commented code below
   if (round(beltPos % MODULESTEPS - measureOffset) == 0) {
@@ -37,14 +56,7 @@ void loop() {
     binOrder[whichBin][binIndex[whichBin - 1]] = beltPos + MODULESTEPS*(whichBin+FIRSTBIN);
     actuateServo(beltPos);
   }
-  // if (Serial.available()) {
-  //   input = Serial.readStringUntil('\n');
-  //   input.trim();
-  //   if (input == "measure") {
-  //     whichBin = binFinder();
-  //     // Belt position still needs to be defined using steppers 
-  //     binOrder[whichBin] = binOrder[whichBin].push_back(beltPos + moduleWidth*(whichBin+FIRSTBIN))
-  //     actuateServo(beltPos)
-  //   }
-  // }
+
+  left_stepper.runSpeed();
+
 }

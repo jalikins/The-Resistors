@@ -41,14 +41,14 @@ double referenceValue [] = {
   50,
   100
 };
-
+const uint8_t MOTORINTERFACETYPE = 1;
 
 // steps per revolution
 const int STEPS_PER_REVOLUTION = 513;
 const double PERC_UNCERTAINTY = 0.2;
 const double HITHRESHOLD = 4.0;
 // Speed in steps per second
-const int BELTSPEED = 12;
+const int BELTSPEED = 20;
 const int MODULESTEPS = STEPS_PER_REVOLUTION/8;
 
 
@@ -82,7 +82,7 @@ int i=0;
 int binThreshold = 0;
 int iterationCount = 1;
 bool catchAll = 0;
-// String input = "";
+String input = "";
 
 int whichBin = CATCHALLBIN;
 // Stores an unused element index for each row in binOrder

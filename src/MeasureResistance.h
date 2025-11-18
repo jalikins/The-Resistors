@@ -1,5 +1,6 @@
 #include <Servo.h> // Include the Servo library
 #include <Stepper.h> // Include stepper library
+#include <AccelStepper.h>
 #include <Arduino.h>
 #include <math.h>
 #include <string.h>
@@ -12,10 +13,10 @@ Servo servo4;
 // -- PIN DEFINITIONS -- //
 
 // Servo pin definitions
-const uint8_t SERVOPIN1 = 1;
-const uint8_t SERVOPIN2 = 2;
-const uint8_t SERVOPIN3 = 3;
-const uint8_t SERVOPIN4 = 4;
+const uint8_t SERVOPIN1 = 10;
+const uint8_t SERVOPIN2 = 11;
+const uint8_t SERVOPIN3 = 12;
+const uint8_t SERVOPIN4 = 13;
 
 // Resistor measurement pin definition
 const int RESISTORPIN = A0;
@@ -44,11 +45,11 @@ double referenceValue [] = {
 const uint8_t MOTORINTERFACETYPE = 1;
 
 // steps per revolution
-const int STEPS_PER_REVOLUTION = 513;
-const double PERC_UNCERTAINTY = 0.2;
+const int STEPS_PER_REVOLUTION = 200;
+const double PERC_UNCERTAINTY = 0.6;
 const double HITHRESHOLD = 4.0;
 // Speed in steps per second
-const int BELTSPEED = 20;
+const int BELTSPEED = -7;
 const int MODULESTEPS = STEPS_PER_REVOLUTION/8;
 
 
@@ -73,10 +74,12 @@ unsigned long timer = 0;
 // Counts the number of steps
 unsigned long beltPos = 0;
 // Needs to be assigned (calibrate where to measure)
-unsigned long measureOffset = 0;
+unsigned long measureOffset = 40;
 double voltageMeas = 0;
 double varResistance = 0;
 double constResistance = 0;
+// For tuning the timer
+int timeOffset = 1;
 int bins [CATCHALLBIN];
 int i=0;
 int binThreshold = 0;
@@ -101,26 +104,32 @@ int binOrder[4][10] = {
   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 };
 
+AccelStepper left_stepper(MOTORINTERFACETYPE, STEPPIN, DIRPIN);
+
 int actuateServo(float beltPos) {
     for (i=0; i<=sizeof(binOrder[0]); i+=1) {
         if (round(beltPos - i) == 0) {
             servo1.write(SERVOANGLE);
         }
+      left_stepper.runSpeed();
     }
     for (i=0; i<=sizeof(binOrder[1]); i+=1) {
         if (round(beltPos - i) == 0) {
             servo2.write(SERVOANGLE);
         }
+        left_stepper.runSpeed();
     }
     for (i=0; i<=sizeof(binOrder[2]); i+=1) {
         if (round(beltPos - i) == 0) {
             servo3.write(SERVOANGLE);
         }
+        left_stepper.runSpeed();
     }
     for (i=0; i<=sizeof(binOrder[3]); i+=1) {
         if (round(beltPos - i) == 0) {
             servo4.write(SERVOANGLE);
         }
+        left_stepper.runSpeed();
     }
 }
 
@@ -134,8 +143,8 @@ int binFinder() {
   voltageMeas = analogRead(RESISTORPIN);
   // Convert to voltage
   voltageMeas = VOLTAGEIN*voltageMeas/VOLTAGECONVERSION;
-  Serial.print("voltageMeas=");
-  Serial.println(voltageMeas);
+  // Serial.print("voltageMeas=");
+  // Serial.println(voltageMeas);
   constResistance = referenceValue[0];
   
   // Assign to catch all bin if resistance is too small to measure
@@ -147,6 +156,7 @@ int binFinder() {
 
   // Step down reference resistor values until receiving on a good signal
   while (voltageMeas > HITHRESHOLD) {
+    // left_stepper.runSpeed();
     if (iterationCount > 8) {
       catchAll = true;
       whichBin = CATCHALLBIN;
@@ -165,8 +175,8 @@ int binFinder() {
     // Take new voltage reading
     voltageMeas = analogRead(RESISTORPIN);
     voltageMeas = VOLTAGEIN*voltageMeas/VOLTAGECONVERSION;
-    Serial.print("voltageMeas=");
-    Serial.println(voltageMeas);
+    // Serial.print("voltageMeas=");
+    // Serial.println(voltageMeas);
     // Update the reference resistance value
     constResistance = referenceValue[iterationCount];
     
@@ -180,7 +190,7 @@ int binFinder() {
   if (catchAll == false) {
     // Calculate the resistance of unknown resistor
     varResistance = voltageMeas*constResistance/(VOLTAGEIN - voltageMeas);
-    varResistance = round(varResistance);
+    // varResistance = round(varResistance);
     // Determine the raw uncertainty in bin value
     binThreshold = PERC_UNCERTAINTY * varResistance;
 
@@ -206,6 +216,7 @@ int binFinder() {
       // Last bin catch all
       whichBin = i + 1;
     }
+    // left_stepper.runSpeed();
   }
   // Reset catchAll boolean
   catchAll = false;

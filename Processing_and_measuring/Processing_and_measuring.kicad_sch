@@ -6255,6 +6255,28 @@
 	)
 	(global_label "Power"
 		(shape input)
+		(at 64.77 138.43 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8575b720-a07b-456f-9595-f70582b4f77e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 64.77 129.8205 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "Power"
+		(shape input)
 		(at 270.51 41.91 270)
 		(fields_autoplaced yes)
 		(effects

@@ -6702,28 +6702,6 @@
 	)
 	(global_label "Power"
 		(shape input)
-		(at 269.24 97.79 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "21388a90-fe1a-4b31-83d4-82570120ad43")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 277.8495 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "Power"
-		(shape input)
 		(at 233.68 62.23 0)
 		(fields_autoplaced yes)
 		(effects
@@ -9033,72 +9011,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 269.24 100.33 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "5ab20ee4-d7ee-4588-b024-4cd3892b34dc")
-		(property "Reference" "#PWR022"
-			(at 269.24 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 269.24 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 269.24 100.33 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 269.24 100.33 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 269.24 100.33 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "a903d438-5d68-4f62-9b4d-3359609400d8")
-		)
-		(instances
-			(project "Processing_and_measuring"
-				(path "/042b9f46-6dbb-45f9-91f7-21f14ba1e222"
-					(reference "#PWR022")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 71.12 85.09 90)
 		(unit 1)
@@ -10533,7 +10445,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tpsm863253.pdf?ts=1707940480558&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FTPSM863253"
 			(at 234.95 134.62 0)
 			(effects
 				(font
@@ -11283,74 +11195,6 @@
 			(project "Processing_and_measuring"
 				(path "/042b9f46-6dbb-45f9-91f7-21f14ba1e222"
 					(reference "R5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x02_Pin")
-		(at 264.16 97.79 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "d0c600ca-a859-46fe-8eb0-237d15577068")
-		(property "Reference" "J5"
-			(at 264.795 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Conn_01x02_Pin"
-			(at 264.795 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_1x02_P1.00mm_Horizontal"
-			(at 264.16 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 264.16 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 264.16 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "8381b5aa-a66c-49c3-901f-13b95e8f1ece")
-		)
-		(pin "1"
-			(uuid "a0ef6bae-a21e-4185-a829-6650c3892fc6")
-		)
-		(instances
-			(project ""
-				(path "/042b9f46-6dbb-45f9-91f7-21f14ba1e222"
-					(reference "J5")
 					(unit 1)
 				)
 			)

@@ -4673,7 +4673,7 @@
 	(text_box "Connectors"
 		(exclude_from_sim no)
 		(at 200.66 16.51 0)
-		(size 82.55 86.36)
+		(size 82.55 91.44)
 		(margins 0.9525 0.9525 0.9525 0.9525)
 		(stroke
 			(width 0)
@@ -4767,6 +4767,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0be22c06-7e46-4e6f-aeda-980a6ec43f48")
+	)
+	(junction
+		(at 276.86 127)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "198448ce-1a4d-4993-b3ae-60500d2fd7de")
 	)
 	(junction
 		(at 74.93 87.63)
@@ -5306,6 +5312,16 @@
 	)
 	(wire
 		(pts
+			(xy 276.86 121.92) (xy 276.86 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "31969faa-6c7c-46e9-84fa-f2f0b6f4fe73")
+	)
+	(wire
+		(pts
 			(xy 49.53 166.37) (xy 48.26 166.37)
 		)
 		(stroke
@@ -5313,6 +5329,16 @@
 			(type default)
 		)
 		(uuid "337ea1b3-bac3-46e2-ae6a-9f0c294c2dc1")
+	)
+	(wire
+		(pts
+			(xy 266.7 121.92) (xy 266.7 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "37bf3d6e-6939-4fac-9c1e-506acd67f9fb")
 	)
 	(wire
 		(pts
@@ -5383,6 +5409,16 @@
 			(type default)
 		)
 		(uuid "4bfbab5f-e54e-4dcb-bd66-ef979128fb84")
+	)
+	(wire
+		(pts
+			(xy 269.24 121.92) (xy 266.7 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4ef656e0-cd5e-4322-8070-86a608ae40db")
 	)
 	(wire
 		(pts
@@ -6606,6 +6642,28 @@
 	)
 	(global_label "Power"
 		(shape input)
+		(at 269.24 97.79 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "21388a90-fe1a-4b31-83d4-82570120ad43")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 277.8495 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "Power"
+		(shape input)
 		(at 233.68 62.23 0)
 		(fields_autoplaced yes)
 		(effects
@@ -7370,7 +7428,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_30pF"
+		(property "Value" "C_33pF"
 			(at 177.8 77.4699 0)
 			(effects
 				(font
@@ -8819,6 +8877,72 @@
 			(project "Processing_and_measuring"
 				(path "/042b9f46-6dbb-45f9-91f7-21f14ba1e222"
 					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 269.24 100.33 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5ab20ee4-d7ee-4588-b024-4cd3892b34dc")
+		(property "Reference" "#PWR022"
+			(at 269.24 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 269.24 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 269.24 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 269.24 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 269.24 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a903d438-5d68-4f62-9b4d-3359609400d8")
+		)
+		(instances
+			(project "Processing_and_measuring"
+				(path "/042b9f46-6dbb-45f9-91f7-21f14ba1e222"
+					(reference "#PWR022")
 					(unit 1)
 				)
 			)
@@ -10568,7 +10692,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "C_30pF"
+		(property "Value" "C_33pF"
 			(at 187.96 77.4699 0)
 			(effects
 				(font
@@ -11015,6 +11139,74 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x02_Pin")
+		(at 264.16 97.79 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d0c600ca-a859-46fe-8eb0-237d15577068")
+		(property "Reference" "J5"
+			(at 264.795 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x02_Pin"
+			(at 264.795 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_1x02_P1.00mm_Horizontal"
+			(at 264.16 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 264.16 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 264.16 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "8381b5aa-a66c-49c3-901f-13b95e8f1ece")
+		)
+		(pin "1"
+			(uuid "a0ef6bae-a21e-4185-a829-6650c3892fc6")
+		)
+		(instances
+			(project ""
+				(path "/042b9f46-6dbb-45f9-91f7-21f14ba1e222"
+					(reference "J5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 71.12 95.25 90)
 		(unit 1)
@@ -11291,6 +11483,74 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C")
+		(at 273.05 121.92 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ef7843d8-927d-421b-8715-70efcd06ea35")
+		(property "Reference" "C5"
+			(at 273.05 114.3 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "22u"
+			(at 273.05 116.84 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 276.86 120.9548 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 273.05 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 273.05 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "b9b13f03-e8d4-4d79-98fc-374f4611e7da")
+		)
+		(pin "1"
+			(uuid "3c1e1918-d8ed-4440-b9a1-54c2380bc8ab")
+		)
+		(instances
+			(project "Processing_and_measuring"
+				(path "/042b9f46-6dbb-45f9-91f7-21f14ba1e222"
+					(reference "C5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 173.99 81.28 0)
 		(unit 1)
@@ -11544,7 +11804,7 @@
 				)
 			)
 		)
-		(property "Value" "44u"
+		(property "Value" "22u"
 			(at 273.05 121.92 90)
 			(effects
 				(font

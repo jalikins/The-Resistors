@@ -5017,8 +5017,8 @@
 		(uuid "2d142bb7-5c3a-4917-b234-41d0fc0d39d6")
 	)
 	(no_connect
-		(at 158.75 119.38)
-		(uuid "344a858c-5b23-43cb-a9f5-019210e0abad")
+		(at 118.11 68.58)
+		(uuid "34fe34c2-a1c0-4e11-902f-905fcaff0b77")
 	)
 	(no_connect
 		(at 118.11 101.6)
@@ -5049,12 +5049,20 @@
 		(uuid "cbecfc90-fe30-47f9-bac4-5d43c0051ca1")
 	)
 	(no_connect
-		(at 158.75 121.92)
-		(uuid "d4e5e84c-d9f3-4664-9c85-a89954d6316f")
+		(at 118.11 71.12)
+		(uuid "e0ce0bf2-9d36-4657-bbad-99a4f020ee1c")
 	)
 	(no_connect
 		(at 118.11 106.68)
 		(uuid "eb6e599d-c189-4586-bef1-52b298f57ecf")
+	)
+	(no_connect
+		(at 158.75 119.38)
+		(uuid "f246e0b2-242d-4dd3-b127-bdcd131fcc77")
+	)
+	(no_connect
+		(at 118.11 73.66)
+		(uuid "f7576984-4a3c-4cb7-a535-df2fabe115e2")
 	)
 	(no_connect
 		(at 118.11 119.38)
@@ -6230,6 +6238,16 @@
 		)
 		(uuid "278cdf4b-c8c2-4620-aea5-b719ad2e5edf")
 	)
+	(label "button"
+		(at 260.35 100.33 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "28ac5e37-7ce3-489c-acee-0a6b750a4cc8")
+	)
 	(label "RXD"
 		(at 158.75 106.68 0)
 		(effects
@@ -6479,6 +6497,16 @@
 			(justify left bottom)
 		)
 		(uuid "a253d4e4-25ad-4194-8cd4-839af4b06701")
+	)
+	(label "button"
+		(at 158.75 121.92 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ae6e1732-ffd9-4233-b99b-5289ccc7f383")
 	)
 	(label "3"
 		(at 269.24 81.28 0)
@@ -9143,6 +9171,72 @@
 			(project ""
 				(path "/042b9f46-6dbb-45f9-91f7-21f14ba1e222"
 					(reference "L1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 260.35 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6589d677-9d3a-4e5f-8918-2d69ebab920a")
+		(property "Reference" "#PWR022"
+			(at 260.35 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 260.35 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 260.35 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 260.35 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 260.35 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d3091521-a6cb-4f3d-b619-f0d71d0f6ac6")
+		)
+		(instances
+			(project "Processing_and_measuring"
+				(path "/042b9f46-6dbb-45f9-91f7-21f14ba1e222"
+					(reference "#PWR022")
 					(unit 1)
 				)
 			)
@@ -11843,6 +11937,74 @@
 			(project ""
 				(path "/042b9f46-6dbb-45f9-91f7-21f14ba1e222"
 					(reference "C3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Pin")
+		(at 255.27 100.33 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f7d80abc-e5a8-419b-80ba-9b3bab55def4")
+		(property "Reference" "J5"
+			(at 255.905 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x02_Pin"
+			(at 255.905 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_1x02_P1.00mm_Horizontal"
+			(at 255.27 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 255.27 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 255.27 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "d2d90e36-ff74-4242-8335-6583d7155330")
+		)
+		(pin "1"
+			(uuid "4a393109-90f0-4f90-b009-0c215b8be683")
+		)
+		(instances
+			(project "Processing_and_measuring"
+				(path "/042b9f46-6dbb-45f9-91f7-21f14ba1e222"
+					(reference "J5")
 					(unit 1)
 				)
 			)

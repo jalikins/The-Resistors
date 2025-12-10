@@ -64,6 +64,7 @@ void loop() {
     varResistance = voltageMeas*constResistance/(VOLTAGEIN - voltageMeas);
     // varResistance = round(varResistance);
     // Input number of modules to the desired bin plus the current belt position
+    whichBin = binFinder(constResistance, varResistance);
     binOrder[whichBin][binIndex[whichBin - 1]] = beltPos + FIRSTBIN + whichBin - 1;
     actuate(beltPos, binOrder);
   }

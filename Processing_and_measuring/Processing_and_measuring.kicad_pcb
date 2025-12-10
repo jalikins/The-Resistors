@@ -38,7 +38,7 @@
 		(allow_soldermask_bridges_in_footprints no)
 		(tenting front back)
 		(pcbplotparams
-			(layerselection 0x00000000_00000000_55555555_5755f5ff)
+			(layerselection 0x00000000_00000000_55555555_57555552)
 			(plot_on_all_layers_selection 0x00000000_00000000_00000000_00000000)
 			(disableapertmacros no)
 			(usegerberextensions no)
@@ -59,7 +59,7 @@
 			(pdf_metadata yes)
 			(pdf_single_document no)
 			(dxfpolygonmode yes)
-			(dxfimperialunits yes)
+			(dxfimperialunits no)
 			(dxfusepcbnewfont yes)
 			(psnegative no)
 			(psa4output no)
@@ -70,9 +70,9 @@
 			(sketchdnponfab yes)
 			(crossoutdnponfab yes)
 			(subtractmaskfromsilk no)
-			(outputformat 1)
+			(outputformat 3)
 			(mirror no)
-			(drillshape 1)
+			(drillshape 0)
 			(scaleselection 1)
 			(outputdirectory "")
 		)
@@ -12237,7 +12237,7 @@
 			(net 66 "unconnected-(VR1-SW-Pad2)")
 			(pinfunction "SW")
 			(pintype "no_connect")
-			(uuid "ab618a5a-4e28-449d-8a46-f094330e4854")
+			(uuid "12a931cf-48d4-4ab6-b4b8-fa1d15e7bc44")
 		)
 		(pad "2" thru_hole circle
 			(at -1.65 1.165 270)
@@ -12248,7 +12248,7 @@
 			(net 66 "unconnected-(VR1-SW-Pad2)")
 			(pinfunction "SW")
 			(pintype "no_connect")
-			(uuid "ab618a5a-4e28-449d-8a46-f094330e4854")
+			(uuid "504c8911-c2bc-4b8b-9773-5b7622f2ec7c")
 		)
 		(pad "2" smd rect
 			(at -1.15 0.675 270)
@@ -12257,7 +12257,7 @@
 			(net 66 "unconnected-(VR1-SW-Pad2)")
 			(pinfunction "SW")
 			(pintype "no_connect")
-			(uuid "ab618a5a-4e28-449d-8a46-f094330e4854")
+			(uuid "985df9b0-9b86-403d-9661-8eaa4539cc24")
 		)
 		(pad "2" thru_hole circle
 			(at -0.65 0.165 270)
@@ -12268,7 +12268,7 @@
 			(net 66 "unconnected-(VR1-SW-Pad2)")
 			(pinfunction "SW")
 			(pintype "no_connect")
-			(uuid "ab618a5a-4e28-449d-8a46-f094330e4854")
+			(uuid "220050e0-be9d-4017-ad48-5dbc56d7d5f2")
 		)
 		(pad "2" thru_hole circle
 			(at -0.65 0.665 270)
@@ -12279,7 +12279,7 @@
 			(net 66 "unconnected-(VR1-SW-Pad2)")
 			(pinfunction "SW")
 			(pintype "no_connect")
-			(uuid "ab618a5a-4e28-449d-8a46-f094330e4854")
+			(uuid "a6b88086-3c24-425e-a463-dbee66aa6c7f")
 		)
 		(pad "2" thru_hole circle
 			(at -0.65 1.165 270)
@@ -12290,7 +12290,7 @@
 			(net 66 "unconnected-(VR1-SW-Pad2)")
 			(pinfunction "SW")
 			(pintype "no_connect")
-			(uuid "ab618a5a-4e28-449d-8a46-f094330e4854")
+			(uuid "0cfcde66-6c6c-491f-b60e-67188a8294ca")
 		)
 		(pad "3" thru_hole custom
 			(at 0.65 0.165 270)
@@ -12347,7 +12347,7 @@
 			(net 4 "+5V")
 			(pinfunction "VOUT")
 			(pintype "output")
-			(uuid "0edf21d5-7836-478e-bf04-d9a308f94855")
+			(uuid "3756d20f-c2dc-4123-965d-88d93ea81c8f")
 		)
 		(pad "3" thru_hole circle
 			(at 0.65 1.165 270)
@@ -12358,7 +12358,7 @@
 			(net 4 "+5V")
 			(pinfunction "VOUT")
 			(pintype "output")
-			(uuid "0edf21d5-7836-478e-bf04-d9a308f94855")
+			(uuid "0fa8df32-82e3-459f-9c88-5ed110df9439")
 		)
 		(pad "3" smd rect
 			(at 1.15 0.675 270)
@@ -12367,7 +12367,7 @@
 			(net 4 "+5V")
 			(pinfunction "VOUT")
 			(pintype "output")
-			(uuid "0edf21d5-7836-478e-bf04-d9a308f94855")
+			(uuid "6d81bfd4-0db4-4a86-ab21-26a588042f1a")
 		)
 		(pad "3" thru_hole circle
 			(at 1.65 0.165 270)
@@ -12378,7 +12378,7 @@
 			(net 4 "+5V")
 			(pinfunction "VOUT")
 			(pintype "output")
-			(uuid "0edf21d5-7836-478e-bf04-d9a308f94855")
+			(uuid "61253972-02f5-438e-926b-0925171e8624")
 		)
 		(pad "3" thru_hole circle
 			(at 1.65 0.665 270)
@@ -12389,7 +12389,7 @@
 			(net 4 "+5V")
 			(pinfunction "VOUT")
 			(pintype "output")
-			(uuid "0edf21d5-7836-478e-bf04-d9a308f94855")
+			(uuid "322f3354-b5dd-4475-b313-60cf6eca61d6")
 		)
 		(pad "3" thru_hole circle
 			(at 1.65 1.165 270)
@@ -12400,7 +12400,7 @@
 			(net 4 "+5V")
 			(pinfunction "VOUT")
 			(pintype "output")
-			(uuid "0edf21d5-7836-478e-bf04-d9a308f94855")
+			(uuid "d2714261-9f80-4f98-a3c7-197855a84978")
 		)
 		(pad "4" smd custom
 			(at 1.3625 -1.3375 270)

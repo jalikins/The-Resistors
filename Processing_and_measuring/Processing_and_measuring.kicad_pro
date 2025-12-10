@@ -490,7 +490,7 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "Processing_and_measuring.step",
       "svg": "",
       "vrml": ""
     },

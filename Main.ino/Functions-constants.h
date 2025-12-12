@@ -8,7 +8,7 @@
 // -- PIN DEFINITIONS -- //
 
 // Actuators in order (starting with actuator 1)
-const int ACTUATORPIN[14] = {
+const uint8_t ACTUATORPIN [] = {
   16,
   18,
   17,
@@ -94,7 +94,7 @@ const int SERVOANGLE = 10;
 
 // To be removed
 unsigned long timer = 0;
-int binVals[];
+// int binVals[]; //For assigning bins
 
 // Counts the number of steps (resets each full revolution)
 unsigned int beltPos = 0;
@@ -225,8 +225,8 @@ int measureVoltage() {
     // Assign to catch all bin if all reference values are tested
     iterationCount += 1;
   }
-  return constResistance, voltageMeas;
-};
+  return constResistance;
+}
 
 // Return which bin to drop measured resistor
 int binFinder(double constResistance, double varResistance) {
@@ -255,7 +255,7 @@ int binFinder(double constResistance, double varResistance) {
       }
       // Last bin catch all
       if (whichBin == CATCHALLBIN) {
-        catchAll == true;
+        catchAll = true;
       }
     }
     // left_stepper.runSpeed();

@@ -26,7 +26,7 @@ const uint8_t ACTUATORPIN [] = {
 };
 
 // Resistor measurement
-const int RESISTORPIN = 30;
+const int RESISTORPIN = PIN_PE0;
 
 // MUX
 const int MUXA = 37;
@@ -35,8 +35,8 @@ const int MUXC = 39;
 const int MUXD = 40;
 
 // Stepper motor
-const int DIRPIN = 3;
-const int STEPPIN = 2;
+const int DIRPIN = PIN_PA3;
+const int STEPPIN = PIN_PA2;
 
 // Button 
 const int BUTTONPIN = 21;
@@ -47,7 +47,7 @@ const int RXDPIN = 15;
 
 
 // Stepper speed
-const int BELTSPEED;
+const int BELTSPEED = 200;
 
 // Net measuring voltage
 const int VOLTAGEIN = 5;
@@ -74,12 +74,15 @@ double referenceValue [16] = {
 
 const uint8_t MOTORINTERFACETYPE = 1;
 
+const int NUM_ACTUAT = 14; // how many acutators we got
+const int BIN_DIST = 19; // how many modules from the measurement to the first bin + total bins
+const int FIRSTBIN = 5;
+
+
 // steps per revolution
 const double PERC_UNCERTAINTY = 0.6;
 const double HITHRESHOLD = 4.0;
 
-
-const uint8_t FIRSTBIN = 5; // Modules from measurement to the first bin
 
 // Equal to total number of bins
 const int CATCHALLBIN = 14;
@@ -94,7 +97,7 @@ unsigned long measureOffset = 40;
 double voltageMeas = 0;
 double varResistance = 0;
 
-int bins [CATCHALLBIN];
+double bins [CATCHALLBIN];
 
 // Iterators
 unsigned int n=0;
@@ -140,17 +143,17 @@ int binOrder[14][10] = {
   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 };
 
-AccelStepper left_stepper(MOTORINTERFACETYPE, STEPPIN, DIRPIN);
+AccelStepper belt_stepper(MOTORINTERFACETYPE, STEPPIN, DIRPIN);
 
-// Determine which actuators to trigger at a given belt position
-void actuate(unsigned int beltPos, int binOrder[14][10]) {
-  for (uint8_t n=0; n<=sizeof(ACTUATORPIN); n++) {
-    for (uint8_t i=0; i<=sizeof(binOrder[0]); i++) {
-        if (beltPos - binOrder[0][i] == 0) {
+// Determine which actuators to trigger at a given belt position //(sizeof(ACTUATORPIN)/sizeof(ACTUATORPIN[0]))
+void actuate(unsigned int beltPos, int binOrder[14][10]) { // decides when to run which acutator
+  for (uint8_t n=0; n < NUM_ACTUAT; n++) {
+    for (uint8_t i=0; i < BIN_DIST; i++) {
+        if (beltPos - binOrder[n][i] == 0) {
             digitalWrite(ACTUATORPIN[n], LOW);
             break;
         }
-      left_stepper.runSpeed();
+      belt_stepper.runSpeed();
     }
   }
 }
@@ -183,8 +186,8 @@ int measureVoltage() {
   uint8_t iterationCount = 1;
   // Step down reference resistor values until receiving on a good signal
   while (voltageMeas > HITHRESHOLD) {
-    // left_stepper.runSpeed();
-    if (iterationCount > sizeof(referenceValue)) {
+    // belt_stepper.runSpeed();
+    if (iterationCount > 16) {
       catchAll = true;
       break;
     }
@@ -201,7 +204,7 @@ int measureVoltage() {
     }
     
     // Take new voltage reading
-    voltageMeas = analogRead(RESISTORPIN);
+    voltageMeas = analogRead(RESISTORPIN); // look at resistor pin
     voltageMeas = VOLTAGEIN*voltageMeas/VOLTAGECONVERSION;
     // Serial.print("voltageMeas=");
     // Serial.println(voltageMeas);
@@ -215,17 +218,17 @@ int measureVoltage() {
 };
 
 // Return which bin to drop measured resistor
-int binFinder(double constResistance, double varResistance) {
+int binFinder(double constResistance, double varResistance) { 
   whichBin = CATCHALLBIN;
   if (catchAll == false) {
     // Determine the raw uncertainty in bin value
-    int binThreshold = round(PERC_UNCERTAINTY * varResistance);
+    int binThreshold = round(PERC_UNCERTAINTY * varResistance); // should this go in a bin or not
 
-    for (uint8_t i=0; i<CATCHALLBIN; i++) {
+    for (uint8_t i=0; i<CATCHALLBIN; i++) { // creating a new bin 
       whichBin = i + 1;
       if (bins[i] == 0) {
         // Assign a new bin
-        bins[i] = varResistance;
+        bins[i] = varResistance; // all the raspit ahs to do is change the bins
         Serial.print("New Bin ");
         Serial.print(whichBin);
         Serial.print(": ");
@@ -241,10 +244,10 @@ int binFinder(double constResistance, double varResistance) {
       }
       // Last bin catch all
       if (whichBin == CATCHALLBIN) {
-        catchAll == true;
+        catchAll = true;
       }
     }
-    // left_stepper.runSpeed();
+    // belt_stepper.runSpeed();
   }
   if (catchAll == true) {
     whichBin = CATCHALLBIN;

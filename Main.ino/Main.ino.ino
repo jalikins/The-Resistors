@@ -2,12 +2,12 @@
 
 void setup() {
   Serial.begin(9600);
-
   Serial1.begin(9600); // for PC0 and PC1
 
   belt_stepper.setMaxSpeed(BELTSPEED); // change this if going too fast
   belt_stepper.setAcceleration(200);
 
+  PT_INIT(&ptActuate);
   for (unsigned int i=0; i<sizeof(ACTUATORPIN); i++) {
     pinMode(ACTUATORPIN[i], OUTPUT);
   }
@@ -45,7 +45,17 @@ void loop() {
         bins[i] = 0;
       }
     }
-      
+    // Change limitswitch to false between modules
+    if (input == "limitoff") {
+      // Progress belt position, bin index, and actuate when a new module is reached
+      if (limitSwitch == true) {
+        (beltPos++)%MODULENUM;
+        (binIndex[whichBin - 1]++)%CATCHALLBIN;
+        PT_SCHEDULE(actuate(&ptActuate));
+      }
+      limitSwitch == false;
+    }
+    // Make sure limitswitch is true when on a module 
     if (input == "limit") {
       limitSwitch = true;
     }
@@ -85,16 +95,7 @@ void loop() {
     // Input number of modules to the desired bin plus the current belt position
     whichBin = binFinder(constResistance, varResistance);
     binOrder[whichBin][binIndex[whichBin - 1]] = beltPos + FIRSTBIN + whichBin - 1; // add to bin order take the bin where in the row should the resistor be placed
-    binIndex[whichBin - 1]++;
-    if (binIndex[whichBin - 1] == 11) {
-      binIndex[whichBin - 1] = 0;
-    }
-    // binindex needs to be iterated
-    actuate(beltPos, binOrder);
-
-    limitSwitch = false;
   }
-
   belt_stepper.runSpeed();
   
 }

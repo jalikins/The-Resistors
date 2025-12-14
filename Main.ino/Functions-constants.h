@@ -4,6 +4,7 @@
 #include <avr/io.h>
 #include <math.h>
 #include <string.h>
+#include "protothreads.h"
 
 // -- PIN DEFINITIONS -- //
 
@@ -26,7 +27,7 @@ const uint8_t ACTUATORPIN [] = {
 };
 
 // Resistor measurement
-const int RESISTORPIN = PIN_PE0;
+const int RESISTORPIN = 30;
 
 // MUX
 const int MUXA = 37;
@@ -35,8 +36,8 @@ const int MUXC = 39;
 const int MUXD = 40;
 
 // Stepper motor
-const int DIRPIN = PIN_PA3;
-const int STEPPIN = PIN_PA2;
+const int DIRPIN = 3;
+const int STEPPIN = 2;
 
 // Button 
 const int BUTTONPIN = 21;
@@ -86,6 +87,8 @@ const double HITHRESHOLD = 4.0;
 
 // Equal to total number of bins
 const int CATCHALLBIN = 14;
+// Total number of modules
+const int MODULENUM = 36;
 
 uint8_t whichBin = CATCHALLBIN;
 
@@ -146,16 +149,24 @@ int binOrder[14][10] = {
 AccelStepper belt_stepper(MOTORINTERFACETYPE, STEPPIN, DIRPIN);
 
 // Determine which actuators to trigger at a given belt position //(sizeof(ACTUATORPIN)/sizeof(ACTUATORPIN[0]))
-void actuate(unsigned int beltPos, int binOrder[14][10]) { // decides when to run which acutator
-  for (uint8_t n=0; n < NUM_ACTUAT; n++) {
+pt ptActuate;
+int actuateThread(struct pt* pt) { // decides when to run which acutator
+  PT_BEGIN(pt);
+
+  for (uint8_t i=0; i<CATCHALLBIN; i++) {
+    digitalWrite(ACTUATORPIN[n], LOW);
+  }
+  for (uint8_t i=0; i < NUM_ACTUAT; i++) {
     for (uint8_t i=0; i < BIN_DIST; i++) {
         if (beltPos - binOrder[n][i] == 0) {
-            digitalWrite(ACTUATORPIN[n], LOW);
+            digitalWrite(ACTUATORPIN[n], HIGH);
             break;
         }
       belt_stepper.runSpeed();
     }
   }
+
+  PT_END(pt);
 }
 
 // Return voltage across mystery resistor and reference resistor value

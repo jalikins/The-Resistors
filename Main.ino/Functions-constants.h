@@ -46,6 +46,11 @@ const int TXDPIN = 14;
 const int RXDPIN = 15;
 
 
+// Stepper speed
+const int BELTSPEED;
+
+// Net measuring voltage
+const int VOLTAGEIN = 5;
 
 // The known resistor values to cycle through in kOhms
 double referenceValue [16] = {
@@ -70,31 +75,16 @@ double referenceValue [16] = {
 const uint8_t MOTORINTERFACETYPE = 1;
 
 // steps per revolution
-const int STEPS_PER_REVOLUTION = 200;
 const double PERC_UNCERTAINTY = 0.6;
 const double HITHRESHOLD = 4.0;
 
-// Speed in steps per second
-const int BELTSPEED = -7;
-const int MODULESTEPS = STEPS_PER_REVOLUTION/8;
 
+const uint8_t FIRSTBIN = 5; // Modules from measurement to the first bin
 
-const int FIRSTBIN = MODULESTEPS*5; // Steps from measurement to the first bin
-
-const uint8_t NONBINMODULES = 4; // can be deleted
-
-// Equal to total number of bins)
+// Equal to total number of bins
 const int CATCHALLBIN = 14;
 
-// voltage reading constants
-const int VOLTAGEIN = 5;
-const int LOWTHRESHOLD = 1;
-const int VOLTAGECONVERSION = 1030;
-const int SERVOANGLE = 10;
-
-// To be removed
-unsigned long timer = 0;
-// int binVals[]; //For assigning bins
+uint8_t whichBin = CATCHALLBIN;
 
 // Counts the number of steps (resets each full revolution)
 unsigned int beltPos = 0;
@@ -103,24 +93,17 @@ unsigned int beltPos = 0;
 unsigned long measureOffset = 40;
 double voltageMeas = 0;
 double varResistance = 0;
-double constResistance = 0;
 
-// For tuning the timer
-uint8_t timeOffset = 1;
 int bins [CATCHALLBIN];
 
 // Iterators
-unsigned int i=0;
 unsigned int n=0;
-unsigned int iterationCount = 1;
 
-int binThreshold = 0;
 bool limitSwitch = false;
 bool catchAll = 0;
 // Serial inputs
 String input = "";
 
-int whichBin = CATCHALLBIN;
 // Stores an unused element index for each row in binOrder
 uint8_t binIndex [14] = {
   0,
@@ -161,8 +144,8 @@ AccelStepper left_stepper(MOTORINTERFACETYPE, STEPPIN, DIRPIN);
 
 // Determine which actuators to trigger at a given belt position
 void actuate(unsigned int beltPos, int binOrder[14][10]) {
-  for (n=0; i<=sizeof(ACTUATORPIN); n++) {
-    for (i=0; i<=sizeof(binOrder[0]); i++) {
+  for (uint8_t n=0; n<=sizeof(ACTUATORPIN); n++) {
+    for (uint8_t i=0; i<=sizeof(binOrder[0]); i++) {
         if (beltPos - binOrder[0][i] == 0) {
             digitalWrite(ACTUATORPIN[n], LOW);
             break;
@@ -174,7 +157,10 @@ void actuate(unsigned int beltPos, int binOrder[14][10]) {
 
 // Return voltage across mystery resistor and reference resistor value
 int measureVoltage() {
-  whichBin = 0;
+  // voltage reading constants
+  const int LOWTHRESHOLD = 1;
+  const int VOLTAGECONVERSION = 1030;
+
   // Reset catchAll boolean
   catchAll = false;
   digitalWrite(MUXA, LOW);
@@ -193,8 +179,8 @@ int measureVoltage() {
     catchAll = true;
   }
 
-  constResistance = referenceValue[0];
-  iterationCount = 1;
+  double constResistance = referenceValue[0];
+  uint8_t iterationCount = 1;
   // Step down reference resistor values until receiving on a good signal
   while (voltageMeas > HITHRESHOLD) {
     // left_stepper.runSpeed();
@@ -226,16 +212,16 @@ int measureVoltage() {
     iterationCount += 1;
   }
   return constResistance;
-}
+};
 
 // Return which bin to drop measured resistor
 int binFinder(double constResistance, double varResistance) {
-
+  whichBin = CATCHALLBIN;
   if (catchAll == false) {
     // Determine the raw uncertainty in bin value
-    binThreshold = PERC_UNCERTAINTY * varResistance;
+    int binThreshold = round(PERC_UNCERTAINTY * varResistance);
 
-    for (i=0; i<CATCHALLBIN; i++) {
+    for (uint8_t i=0; i<CATCHALLBIN; i++) {
       whichBin = i + 1;
       if (bins[i] == 0) {
         // Assign a new bin
@@ -255,7 +241,7 @@ int binFinder(double constResistance, double varResistance) {
       }
       // Last bin catch all
       if (whichBin == CATCHALLBIN) {
-        catchAll = true;
+        catchAll == true;
       }
     }
     // left_stepper.runSpeed();

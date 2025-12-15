@@ -49,11 +49,11 @@ void loop() {
     if (input == "limitoff") {
       // Progress belt position, bin index, and actuate when a new module is reached
       if (limitSwitch == true) {
-        (beltPos++)%MODULENUM;
-        (binIndex[whichBin - 1]++)%CATCHALLBIN;
-        PT_SCHEDULE(actuate(&ptActuate));
+        beltPos = (beltPos + 1) % MODULENUM;
+        binIndex[whichBin - 1] = (binIndex[whichBin - 1] + 1)%CATCHALLBIN;
+        PT_SCHEDULE(actuateThread(&ptActuate));
       }
-      limitSwitch == false;
+      limitSwitch = false;
     }
     // Make sure limitswitch is true when on a module 
     if (input == "limit") {

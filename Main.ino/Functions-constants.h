@@ -86,7 +86,7 @@ const double HITHRESHOLD = 4.0;
 
 
 // Equal to total number of bins
-const int CATCHALLBIN = 14;
+const uint8_t CATCHALLBIN = 14;
 // Total number of modules
 const int MODULENUM = 36;
 
@@ -101,9 +101,6 @@ double voltageMeas = 0;
 double varResistance = 0;
 
 double bins [CATCHALLBIN];
-
-// Iterators
-unsigned int n=0;
 
 bool limitSwitch = false;
 bool catchAll = 0;
@@ -129,7 +126,7 @@ uint8_t binIndex [14] = {
 };
 // Define 2D array with rows corresponding to bins and columns corresponding 
 // to the belt position when a measured resister must be dropped
-int binOrder[14][10] = {
+int binOrder[14][19] = {
   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -153,13 +150,13 @@ pt ptActuate;
 int actuateThread(struct pt* pt) { // decides when to run which acutator
   PT_BEGIN(pt);
 
-  for (uint8_t i=0; i<CATCHALLBIN; i++) {
-    digitalWrite(ACTUATORPIN[n], LOW);
+  for (uint8_t k=0; k<CATCHALLBIN; k++) {
+    digitalWrite(ACTUATORPIN[k], LOW);
   }
   for (uint8_t i=0; i < NUM_ACTUAT; i++) {
-    for (uint8_t i=0; i < BIN_DIST; i++) {
-        if (beltPos - binOrder[n][i] == 0) {
-            digitalWrite(ACTUATORPIN[n], HIGH);
+    for (uint8_t j=0; j < BIN_DIST; j++) {
+        if (beltPos - binOrder[j][i] == 0) {
+            digitalWrite(ACTUATORPIN[j], HIGH);
             break;
         }
       belt_stepper.runSpeed();
